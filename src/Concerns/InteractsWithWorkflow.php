@@ -19,8 +19,9 @@ trait InteractsWithWorkflow
 
     public function getWorkflows()
     {
+        $model = Utils::getWorkflowModel();
         if ($this->model_id === null) {
-            return Workflow::where('model_id', null)->where('model_type', self::class)->get();
+            return (new $model)::where('model_id', null)->where('model_type', self::class)->get();
         }
 
         return $this->workflows;
