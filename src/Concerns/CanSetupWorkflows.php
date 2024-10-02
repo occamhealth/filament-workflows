@@ -84,7 +84,7 @@ trait CanSetupWorkflows
     {
         return self::getAllModelsWithTrait(InteractsWithWorkflow::class)->mapWithKeys(function ($model, $key) {
             return [
-                $model::class => $model->getModelTitelForWorkflow(),
+                $model::class => $model->getModelTitleForWorkflow(),
             ];
         });
     }
@@ -111,14 +111,14 @@ trait CanSetupWorkflows
             if (! empty($search)) {
                 return $model::where('id', 'LIKE', '%' . $search . '%')->when($searchableColumn !== null, fn (Builder $query) => $query->orWhere($searchableColumn, 'LIKE', '%' . $search . '%'))->take($iMaxResults)->get()->mapWithKeys(function ($model, $key) {
                     return [
-                        $model->getKey() => $model->getTitelAttributeForWorkflow(),
+                        $model->getKey() => $model->getTitleAttributeForWorkflow(),
                     ];
                 })->toArray();
             }
 
             return $model::take($iMaxResults)->get()->mapWithKeys(function ($model) {
                 return [
-                    $model->getKey() => $model->getTitelAttributeForWorkflow(),
+                    $model->getKey() => $model->getTitleAttributeForWorkflow(),
                 ];
             });
         }
