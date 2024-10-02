@@ -3,18 +3,18 @@
 namespace Tschucki\FilamentWorkflows\Concerns;
 
 use Tschucki\FilamentWorkflows\Models\Workflow;
-use Tschucki\FilamentWorkflows\Models\WorkflowLog;
+use Tschucki\FilamentWorkflows\Support\Utils;
 
 trait InteractsWithWorkflow
 {
     public function workflowLogs(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->morphMany(WorkflowLog::class, 'model');
+        return $this->morphMany(Utils::getWorkflowLogModel(), 'model');
     }
 
     protected function workflows(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->morphMany(Workflow::class, 'model');
+        return $this->morphMany(Utils::getWorkflowModel(), 'model');
     }
 
     public function getWorkflows()
@@ -26,12 +26,12 @@ trait InteractsWithWorkflow
         return $this->workflows;
     }
 
-    public function getModelTitelForWorkflow(): string
+    public function getModelTitleForWorkflow(): string
     {
         return class_basename(self::class);
     }
 
-    public function getTitelAttributeForWorkflow()
+    public function getTitleAttributeForWorkflow()
     {
         return $this->getKey();
     }
